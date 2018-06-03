@@ -20,15 +20,15 @@ def main():
 	ax.gridlines(draw_labels=True)
 
 	# Shapefiles que vão gerar os limites territoriais.
-	sc = 'ShapeFiles/cartopy_convert/SC-POLYGON.shp'
-	laguna = 'ShapeFiles/cartopy_convert/DestaqueLaguna-POLYGON.shp'
-	lagoas = 'ShapeFiles/cartopy_convert/LagoasComplexoLagunar-POLYGON.shp'
-	rios = gp.read_file('ShapeFiles/RiosComplexoLagunar.shp')
+	sc = 'analysis/cartopy/shapefiles/SC-POLYGON.shp'
+	laguna = 'analysis/cartopy/shapefiles/DestaqueLaguna-POLYGON.shp'
+	lagoas = 'analysis/cartopy/shapefiles/LagoasComplexoLagunar-POLYGON.shp'
+	rios = gp.read_file('analysis/cartopy/shapefiles/RiosComplexoLagunar.shp')
 
 	# Os pontos de coleta e os dados vêm de arquivos csv
-	lons = np.genfromtxt('2705_lon.csv', delimiter=',')
-	lats = np.genfromtxt('2705_lat.csv', delimiter=',')
-	data = np.genfromtxt('2705_data.csv', delimiter=',')
+	lons = np.genfromtxt('data/csv/2705_lon.csv', delimiter=',')
+	lats = np.genfromtxt('data/csv/2705_lat.csv', delimiter=',')
+	data = np.genfromtxt('data/csv/2705_data.csv', delimiter=',')
 
 	# Vamos fazer uma lista para iterar um loop com a função add_geometries()
 	shapes = [sc, laguna, lagoas, rios]

@@ -1,33 +1,30 @@
+# Importing libraries
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from scripts.functions import *
+import matplotlib.mlab as mlab
+from code.functions import *
 
-# Load() function
-hd1, hd2, variables, datapoints, df = load('sampling/01-10-17/1-10-2017_processed.cnv')
+# Loading the data
+hd1, hd2, variables, datapoints, df = load('data/raw/01-10-17/1-10-2017_processed.cnv')
 
-metadata = pd.read_csv('sampling/01-10-17/coordenadas_0110.csv', sep = ';')
-stations = list(metadata['Ponto'])
-#importing coordinates
-lat = list(metadata['Lat'])
-lon = list(metadata['Lon'])
+# Loading metadata
+metadata = pd.read_csv('data/raw/01-10-17/coordenadas_0110.csv', sep = ';')
+stations, lat, lon = list(metadata['Ponto']), list(metadata['Lat']), list(metadata['Lon'])
 
+# Splitting data into different stations
 d = split_stations(datapoints, stations, variables, lat, lon)
 
+# Removing upcasts
 for st in d:
     d[st] = remove_upcast(d[st])
 
+# Creating variables with stations from the dictionary
 locals().update(d)
 
-# Testando script do Arnaldo (scripts/plot_section.py)
-
-import matplotlib.mlab as mlab
-
-s1 = np.array(st4['sal00:'])
-z1 = np.array(st4['depSM:'])
-s2 = np.array(st5['sal00:'])
-z2 = np.array(st5['depSM:'])
-s3 = np.array(st6['sal00:'])
-z3 = np.array(st6['depSM:'])
+# Rio Tubarão section plot with salinity - DOUBLE CHECK THIS. COMPARE WITH MASTER BRANCH
+s1, s2, s3 = np.array(st4['sal00:']), np.array(st5['sal00:']), np.array(st6['sal00:'])
+z1, z2, z3 = np.array(st4['depSM:']), np.array(st5['depSM:']), np.array(st6['depSM:'])
 sal_level = np.arange(1, 40.1, 1)
 
 x = np.array([])
@@ -49,7 +46,7 @@ plt.show()
 xi = np.linspace(np.min(x), np.max(x), 150)
 yi = np.linspace(np.min(y), np.max(y), 150)
 xi, yi = np.meshgrid(xi, yi)
-zi = mlab.griddata(x, y, z, xi, yi)
+zi = mlab.griddata(x, y, z, xi, yi, interp='linear')
 
 plt.figure()
 plt.pcolormesh(xi,yi,zi)
@@ -61,10 +58,9 @@ plt.gca().invert_yaxis()
 plt.xlabel('Estacoes Rio Tubarao')
 plt.show()
 
-# Dados de coordenada
+# Dados de clorofila
 
 x, y, z, clo = [], [], [], []
-
 clorofila = pd.read_csv('sampling/saida5cc.csv')
 clorofila = clorofila[0:20] # valor da amostra de PP
 
