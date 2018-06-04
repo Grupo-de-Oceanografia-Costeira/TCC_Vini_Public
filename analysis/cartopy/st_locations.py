@@ -1,5 +1,5 @@
 '''
-Plot espacial temperatura 08-07-2017 - Saída 3.
+Plot da localização das estações, a ser usado na seção de "Área de estudo".
 '''
 
 # Importando as bibliotecas
