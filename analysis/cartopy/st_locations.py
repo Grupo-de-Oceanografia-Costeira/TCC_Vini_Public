@@ -28,7 +28,6 @@ def main():
 	# Os pontos de coleta e os dados vêm de arquivos csv
 	lons = np.genfromtxt('data/csv/0807_lon.csv', delimiter=',')
 	lats = np.genfromtxt('data/csv/0807_lat.csv', delimiter=',')
-	data = np.genfromtxt('data/csv/0807_data.csv', delimiter=',')
 
 	# Vamos fazer uma lista para iterar um loop com a função add_geometries()
 	shapes = [sc, laguna, lagoas, rios]
@@ -47,11 +46,7 @@ def main():
 
 	rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
 
-	plt.scatter(lons, lats, c=data, zorder=10, s=40)
-	plt.colorbar(shrink=0.7, ticks=range(int(min(data))-1,int(max(data))+1,1),
-	pad=0.125,).set_label('Temperature in C')
-
-	#ax.plot(lons, lats, c='black', marker='o', ls='None')
+	plt.scatter(lons, lats, color='black', zorder=10, s=40)
 
 	plt.show()
 
