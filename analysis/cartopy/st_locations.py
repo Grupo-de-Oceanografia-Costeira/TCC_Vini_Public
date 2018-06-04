@@ -44,7 +44,7 @@ def main():
 		ccrs.PlateCarree(),
 		facecolor = 'skyblue')
 
-	rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
+	rios.plot(ax=ax, color = 'skyblue', lw=4.0)
 
 	plt.scatter(lons, lats, color='black', zorder=10, s=40)
 
