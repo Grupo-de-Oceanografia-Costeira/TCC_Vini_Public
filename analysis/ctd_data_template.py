@@ -4,7 +4,7 @@ remove_upcast() and locals().update().
 
 Inputs:
 
-load() - data/ctd_processed/<DATE>.cnv
+load() - data/ctd/<DATE>.cnv
 metadata() - data/csv/coordenadas_<DATE>.csv
 
 '''
@@ -17,7 +17,7 @@ Saída 1 - 25-01-2017
 '''
 
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/ctd_processed/stations_25-01-2017_processed.cnv')
+hd1, hd2, variables, datapoints, df = load('data/ctd/stations_25-01-2017_processed.cnv')
 
 # Loading metadata
 metadata = pd.read_csv('data/csv/coordenadas_2501.csv', sep = ';')
@@ -38,7 +38,7 @@ locals().update(d)
 Saída 2 - 27-05-2017
 '''
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/ctd_processed/stations_27-05-2017_processed.cnv')
+hd1, hd2, variables, datapoints, df = load('data/ctd/stations_27-05-2017_processed.cnv')
 
 # Loading metadata
 metadata = pd.read_csv('data/csv/coordenadas_2705.csv', sep = ';')
@@ -61,7 +61,7 @@ locals().update(d)
 Saída 3 - 08-07-2017
 '''
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/ctd_processed/stations_08-07-2017_processed.cnv')
+hd1, hd2, variables, datapoints, df = load('data/ctd/stations_08-07-2017_processed.cnv')
 
 # Loading metadata
 metadata = pd.read_csv('data/csv/coordenadas_0807.csv', sep = ';')
@@ -81,7 +81,7 @@ locals().update(d)
 Saída 4 - 01-10-2017
 '''
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/ctd_processed/stations_01-10-2017_processed.cnv')
+hd1, hd2, variables, datapoints, df = load('data/ctd/stations_01-10-2017_processed.cnv')
 
 # Loading metadata
 metadata = pd.read_csv('data/csv/coordenadas_0110.csv', sep = ';')

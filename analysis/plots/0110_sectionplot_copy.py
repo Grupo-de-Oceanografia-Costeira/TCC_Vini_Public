@@ -1,16 +1,17 @@
+'''
+Section plot 01-10
+
+Load data template.
+'''
 # Importing libraries
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
-import matplotlib as mpl
 from code.functions import *
 
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/ctd_processed/stations_01-10-2017_processed.cnv')
+hd1, hd2, variables, datapoints, df = load('data/ctd/stations_01-10-2017_processed.cnv')
 
 # Loading metadata
-metadata = pd.read_csv('data/raw/01-10-17/coordenadas_0110.csv', sep = ';')
+metadata = pd.read_csv('data/csv/coordenadas_0110.csv', sep = ';')
 stations, lat, lon = list(metadata['Ponto']), list(metadata['Lat']), list(metadata['Lon'])
 
 # Splitting data into different stations
@@ -22,6 +23,18 @@ for st in d:
 
 # Creating variables with stations from the dictionary
 locals().update(d)
+
+'''
+Section plot 01-10
+'''
+
+# Plot dependencies
+import matplotlib.pyplot as plt
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+from cartopy.io.shapereader import Reader
+import geopandas as gp
+import numpy as np
 
 # Rio Tubarão section plot with salinity - DOUBLE CHECK THIS. COMPARE WITH MASTER BRANCH
 s1, s2, s3 = np.array(st4['sal00:']), np.array(st5['sal00:']), np.array(st6['sal00:'])

@@ -1,5 +1,5 @@
 '''
-Rascunho da segunda figura de área de estudo para o TCC.
+Plot espacial temperatura 08-07-2017 - Saída 3.
 '''
 
 # Importando as bibliotecas
