@@ -3,10 +3,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
+import matplotlib as mpl
 from code.functions import *
 
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/raw/01-10-17/1-10-2017_processed.cnv')
+hd1, hd2, variables, datapoints, df = load('data/ctd_processed/stations_01-10-2017_processed.cnv')
 
 # Loading metadata
 metadata = pd.read_csv('data/raw/01-10-17/coordenadas_0110.csv', sep = ';')
@@ -46,7 +47,7 @@ plt.show()
 xi = np.linspace(np.min(x), np.max(x), 150)
 yi = np.linspace(np.min(y), np.max(y), 150)
 xi, yi = np.meshgrid(xi, yi)
-zi = mlab.griddata(x, y, z, xi, yi, interp='linear')
+zi = mlab.griddata(x, y, z, xi, yi)
 
 plt.figure()
 plt.pcolormesh(xi,yi,zi)
@@ -61,7 +62,7 @@ plt.show()
 # Dados de clorofila
 
 x, y, z, clo = [], [], [], []
-clorofila = pd.read_csv('sampling/saida5cc.csv')
+clorofila = pd.read_csv('data/cc_nutrients/saida5cc.csv')
 clorofila = clorofila[0:20] # valor da amostra de PP
 
 for st in d:
@@ -84,10 +85,10 @@ import geopandas as gp
 from mpl_toolkits.basemap import Basemap
 
 # Importando shapefiles
-sc = gp.read_file('ShapeFiles/DestaqueSC.shp')
-laguna = gp.read_file('ShapeFiles/DestaqueLaguna.shp')
-lagoas = gp.read_file('ShapeFiles/LagoasComplexoLagunar.shp')
-rios = gp.read_file('ShapeFiles/RiosComplexoLagunar.shp')
+sc = gp.read_file('analysis/cartopy/shapefiles/DestaqueSC-POLYGON.shp')
+laguna = gp.read_file('analysis/cartopy/shapefiles/DestaqueLaguna-POLYGON.shp')
+lagoas = gp.read_file('analysis/cartopy/shapefiles/LagoasComplexoLagunar-POLYGON.shp')
+rios = gp.read_file('analysis/cartopy/shapefiles/RiosComplexoLagunar.shp')
 
 xi = np.linspace(np.nanmin(x), np.nanmax(x), 2000)
 yi = np.linspace(np.nanmin(y), np.nanmax(y), 2000)
@@ -127,40 +128,4 @@ total = total[cols]
 total.insert(0, 'CRUISE', '01 oct')
 # total.insert(1, 'Station ID', total.index) isso não funciona pq a coluna fica com o nome da estação E o index
 total.insert(1, 'Station ID', range(1,len(total)+1))
-total.to_csv('odv_0110.csv')
-
-
-
-
-
-
-
-
-
-
-
-
-
-plot(st1, '.')
-plot(st2, '.')
-plot(st3, '.')
-plot(st4, '.')
-plot(st5, '.')
-plot(st6, '.')
-plot(st7, '.')
-plot(st9, '.')
-plot(st8, '.')
-plot(st10, '.')
-plot(st11, '.')
-plot(st12, '.')
-plot(st13, '.')
-plot(st16, '.')
-plot(st15, '.')
-plot(st18, '.')
-plot(st19, '.')
-plot(st20, '.')
-plot(st17, '.')
-plot(st14, '.')
-
-for i in stations:
-    print('plot' + '(' + i + ')')
+# total.to_csv('odv_0110.csv')
