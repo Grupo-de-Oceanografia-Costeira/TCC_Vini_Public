@@ -51,8 +51,6 @@ def main():
 	plt.colorbar(shrink=0.7, ticks=range(int(min(data))-1,int(max(data))+1,1),
 	pad=0.125,).set_label('Temperature in C')
 
-	#ax.plot(lons, lats, c='black', marker='o', ls='None')
-
 	plt.show()
 
 if __name__ == '__main__':
