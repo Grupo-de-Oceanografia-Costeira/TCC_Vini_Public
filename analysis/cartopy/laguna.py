@@ -15,7 +15,7 @@ def main():
 
 	# Iniciando a projeção e suas dimensões lat/lon
 	ax = plt.axes(projection=ccrs.PlateCarree())
-	coords = (-48.9, -48.7, -28.4, -28.55)
+	coords = (-48.87, -48.73, -28.4, -28.55)
 	ax.set_extent(coords)
 	ax.gridlines(draw_labels=True)
 
@@ -29,10 +29,6 @@ def main():
 	lons = np.genfromtxt('data/csv/0807_lon.csv', delimiter=',')
 	lats = np.genfromtxt('data/csv/0807_lat.csv', delimiter=',')
 
-	# Vamos fazer uma lista para iterar um loop com a função add_geometries()
-	shapes = [sc, laguna, lagoas, rios]
-
-	# Imagem de background
 	ax.stock_img()
 
 	# Adicionando os shapes ao plot
@@ -48,7 +44,7 @@ def main():
 
 	plt.scatter(lons, lats, color='black', zorder=10, s=40)
 
-	plt.show()
+	plt.savefig('img/estacoes.png', transparent=True)
 
 if __name__ == '__main__':
 	main()

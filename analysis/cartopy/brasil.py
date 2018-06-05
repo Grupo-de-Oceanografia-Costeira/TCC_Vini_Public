@@ -26,7 +26,7 @@ def main():
     ax.set_global()
     ax.gridlines()
 
-    plt.show()
+    plt.savefig('img/brasil.png',transparent=True)
 
 if __name__ == '__main__':
     main()

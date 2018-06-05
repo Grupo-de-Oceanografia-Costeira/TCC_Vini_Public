@@ -47,7 +47,7 @@ def main():
 
 	# ax.add_patch(p)
 
-	plt.show()
+	plt.savefig('img/santacatarina.png')
 
 if __name__ == '__main__':
 	main()
