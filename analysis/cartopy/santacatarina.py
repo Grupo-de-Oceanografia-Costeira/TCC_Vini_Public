@@ -4,6 +4,7 @@ de "Área de estudo"
 '''
 
 # Importando as bibliotecas
+import numpy as np
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
@@ -16,8 +17,9 @@ def main():
 
 	# Iniciando a projeção e suas dimensões lat/lon
 	ax = plt.axes(projection=ccrs.PlateCarree())
-	coords = (-54, -47, -25.5, -30)
+	coords = (-54, -47, -25.8, -29.4)
 	ax.set_extent(coords)
+	ax.set_yticks((-25.8, -27.0, -28.2, -29.4))
 	ax.gridlines(draw_labels=True)
 
 	# Shapefiles que vão gerar os limites territoriais.
@@ -28,9 +30,6 @@ def main():
 	# Vamos fazer uma lista para iterar um loop com a função add_geometries()
 	shapes = [brasil, sc, laguna]
 
-	# ax.add_feature(cfeature.LAND)
-	# ax.add_feature(cfeature.OCEAN)
-	# ax.add_feature(cfeature.COASTLINE)
 	ax.stock_img()
 
 	# for loop para adicionar os shapes à figura
@@ -47,7 +46,7 @@ def main():
 
 	# ax.add_patch(p)
 
-	plt.savefig('img/santacatarina.png')
+	plt.savefig('img/santacatarina.png', transparent=True)
 
 if __name__ == '__main__':
 	main()

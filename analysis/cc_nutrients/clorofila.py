@@ -4,7 +4,7 @@ Cálculo de clorofila a partir de clorofila.csv
 
 import pandas as pd
 
-data = pd.read_csv('sampling/clorofila.csv', sep=';', index_col=0)
+data = pd.read_csv('data/clorofila.csv', sep=';', index_col=0)
 
 data['formula'] = data['665nm'] - data['750nm']
 data['formula2'] = data['665A'] - data['750A']

@@ -1,5 +1,6 @@
 '''
-Rascunho da segunda figura de área de estudo para o TCC.
+Plot de temperatura e/ou clorofila utilizando Cartopy
+Saída 1 - 25 de Janeiro
 '''
 
 # Importando as bibliotecas
@@ -7,6 +8,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from cartopy.io.shapereader import Reader
+import pandas as pd
 import geopandas as gp
 import numpy as np
 
@@ -29,6 +31,8 @@ def main():
 	lons = np.genfromtxt('data/csv/2501_lon.csv', delimiter=',')
 	lats = np.genfromtxt('data/csv/2501_lat.csv', delimiter=',')
 	data = np.genfromtxt('data/csv/2501_data.csv', delimiter=',')
+	chloro = pd.read_csv('data/cc_nutrients/saida1cc.csv', delimiter=';')
+	chloro = chloro['CC']
 
 	# Vamos fazer uma lista para iterar um loop com a função add_geometries()
 	shapes = [sc, laguna, lagoas, rios]
@@ -47,9 +51,11 @@ def main():
 
 	rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
 
-	plt.scatter(lons, lats, c=data, zorder=10, s=40)
-	plt.colorbar(shrink=0.7, ticks=range(int(min(data))-1,int(max(data))+1,1), pad=0.125,
-	).set_label('Temperature in C')
+	plt.scatter(lons, lats, c=chloro, zorder=10, s=40)
+	# plt.scatter(lons, lats, c=data, zorder=10, s=40)
+	plt.colorbar()
+	# plt.colorbar(shrink=0.7, ticks=range(int(min(data))-1,int(max(data))+1,1), pad=0.125,
+	# ).set_label('Temperature in C')
 
 	plt.show()
 
