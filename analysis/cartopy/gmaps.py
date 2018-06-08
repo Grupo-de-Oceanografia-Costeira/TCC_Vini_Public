@@ -39,10 +39,11 @@ def gshhs():
     fig, ax = make_map(projection=ccrs.PlateCarree())
     extent = [-50.5, -47.4, -31, -25]
     ax.set_extent(extent)
+    ax.stock_img()
 
     shp = shapereader.Reader('./analysis/cartopy/shapefiles/santacatarina.shp')
     for record, geometry in zip(shp.records(), shp.geometries()):
-        ax.add_geometries([geometry], ccrs.PlateCarree(), facecolor = 'lightgray',
+        ax.add_geometries([geometry], ccrs.PlateCarree(), facecolor = 'beige',
                           edgecolor = 'black')
 
     plt.show()
