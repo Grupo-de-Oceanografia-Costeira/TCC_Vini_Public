@@ -28,7 +28,7 @@ def main():
 	# Os pontos de coleta e os dados vêm de arquivos csv
 	lons = np.genfromtxt('data/csv/0807_lon.csv', delimiter=',')
 	lats = np.genfromtxt('data/csv/0807_lat.csv', delimiter=',')
-	data = np.genfromtxt('data/csv/0807_data.csv', delimiter=',')
+	data = np.genfromtxt('data/csv/0807_temp.csv', delimiter=',')
 
 	# Vamos fazer uma lista para iterar um loop com a função add_geometries()
 	shapes = [sc, laguna, lagoas, rios]

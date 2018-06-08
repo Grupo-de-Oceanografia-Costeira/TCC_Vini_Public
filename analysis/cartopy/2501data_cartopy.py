@@ -30,7 +30,7 @@ def main():
 	# Os pontos de coleta e os dados vêm de arquivos csv
 	lons = np.genfromtxt('data/csv/2501_lon.csv', delimiter=',')
 	lats = np.genfromtxt('data/csv/2501_lat.csv', delimiter=',')
-	data = np.genfromtxt('data/csv/2501_data.csv', delimiter=',')
+	data = np.genfromtxt('data/csv/2501_temp.csv', delimiter=',')
 	chloro = pd.read_csv('data/cc_nutrients/saida1cc.csv', delimiter=';')
 	chloro = chloro['CC']
 

@@ -23,6 +23,7 @@ def make_map(projection=ccrs.PlateCarree()):
 
 # Google Maps Tiles
 def gmaps():
+    request = cimgt.GoogleTiles()
     fig, ax = make_map(projection=request.crs)
     extent = [-50, -47.4, -30.5, -25]
     ax.set_extent(extent)
@@ -36,7 +37,6 @@ if __name__ == '__main__':
 # GSHHS data
 def gshhs():
     fig, ax = make_map(projection=ccrs.PlateCarree())
-    request = cimgt.GoogleTiles()
     extent = [-50.5, -47.4, -31, -25]
     ax.set_extent(extent)
 
@@ -50,7 +50,7 @@ def gshhs():
 if __name__ == '__main__':
     gshhs()
 
-# Open Street Map
+# OpenStreetMap data files
 def osm():
     fig, ax = make_map(projection=ccrs.PlateCarree())
     extent = [-50.5, -47.4, -31, -25]
@@ -63,3 +63,16 @@ def osm():
 
 if __name__ == '__main__':
     osm()
+
+# OpenStreetMap API
+def osm_api():
+    request = cimgt.OSM()
+    fig, ax = make_map(projection=request.crs)
+    extent = [-50.5, -47.4, -31, -25]
+    ax.set_extent(extent)
+    ax.add_image(request, 10)
+
+    plt.show()
+
+if __name__ == '__main__':
+    osm_api()
