@@ -81,7 +81,7 @@ clorofila = clorofila[0:20] # valor da amostra de PP
 for st in d:
      x.append(d[st]['LONG'][0])
      y.append(d[st]['LAT'][0])
-     z.append(d[st]['sal00:'][0])
+     z.append(d[st]['t090:'][0])
 
 for item in clorofila['CC']:
     clo.append(item)
@@ -101,7 +101,7 @@ with open('0110_lat.csv', 'wb') as myfile:
     wr = csv.writer(myfile, quoting = csv.QUOTE_NONNUMERIC, lineterminator = '\n')
     wr.writerow(y)
 
-with open('0110_data.csv', 'wb') as myfile:
+with open('0110_temp.csv', 'wb') as myfile:
     wr = csv.writer(myfile, quoting = csv.QUOTE_NONNUMERIC, lineterminator = '\n')
     wr.writerow(z)
 
