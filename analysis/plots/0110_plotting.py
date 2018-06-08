@@ -88,7 +88,22 @@ for item in clorofila['CC']:
 
 x.remove(x[2])
 y.remove(y[2])
+z.remove(z[2])
 clo.remove(clo[2]) # remover valor NaN
+
+import csv
+
+with open('0110_lon.csv', 'wb') as myfile:
+    wr = csv.writer(myfile, quoting = csv.QUOTE_NONNUMERIC, lineterminator = '\n')
+    wr.writerow(x)
+
+with open('0110_lat.csv', 'wb') as myfile:
+    wr = csv.writer(myfile, quoting = csv.QUOTE_NONNUMERIC, lineterminator = '\n')
+    wr.writerow(y)
+
+with open('0110_data.csv', 'wb') as myfile:
+    wr = csv.writer(myfile, quoting = csv.QUOTE_NONNUMERIC, lineterminator = '\n')
+    wr.writerow(z)
 
 plt.scatter(x, y, c=clo)
 plt.colorbar()
