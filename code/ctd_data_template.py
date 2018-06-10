@@ -17,11 +17,16 @@ Saída 1 - 25-01-2017
 '''
 
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/ctd/stations_25-01-2017_processed.cnv')
+hd1, hd2, variables, datapoints, alldata = load('data/ctd/stations_25-01-2017_processed.cnv')
 
 # Loading metadata
-metadata = pd.read_csv('data/csv/coordenadas_2501.csv', sep = ';')
-stations, lat, lon = list(metadata['Ponto']), list(metadata['Lat']), list(metadata['Lon'])
+df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
+stations = list(df.loc[df['Data'] == '25-Jan-17']['Ponto'])
+lat = list(df.loc[df['Data'] == '25-Jan-17']['Lat'])
+lon = list(df.loc[df['Data'] == '25-Jan-17']['Lon'])
+
+[i.insert(3,i[2]) for i in [stations, lat, lon]]
+
 
 # Splitting data into different stations
 d = split_stations(datapoints, stations, variables, lat, lon)
@@ -38,11 +43,14 @@ locals().update(d)
 Saída 2 - 27-05-2017
 '''
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/ctd/stations_27-05-2017_processed.cnv')
+hd1, hd2, variables, datapoints, df2 = load('data/ctd/stations_27-05-2017_processed.cnv')
 
 # Loading metadata
-metadata = pd.read_csv('data/csv/coordenadas_2705.csv', sep = ';')
-stations, lat, lon = list(metadata['Ponto']), list(metadata['Lat']), list(metadata['Lon'])
+df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
+stations = list(df.loc[df['Data'] == '27-May-17']['Ponto'])
+lat = list(df.loc[df['Data'] == '27-May-17']['Lat'])
+lon = list(df.loc[df['Data'] == '27-May-17']['Lon'])
+#stations, lat, lon = list(metadata['Ponto']), list(metadata['Lat']), list(metadata['Lon'])
 
 # This particular day (27-05) there was a test station before sampling.
 stations, lat, lon = ['test'] + stations, ['test'] + lat, ['test'] + lon
@@ -64,8 +72,10 @@ Saída 3 - 08-07-2017
 hd1, hd2, variables, datapoints, df = load('data/ctd/stations_08-07-2017_processed.cnv')
 
 # Loading metadata
-metadata = pd.read_csv('data/csv/coordenadas_0807.csv', sep = ';')
-stations, lat, lon = list(metadata['Estacao']), list(metadata['Lat']), list(metadata['Lon'])
+df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
+stations = list(df.loc[df['Data'] == '08-Jul-17']['Ponto'])
+lat = list(df.loc[df['Data'] == '08-Jul-17']['Lat'])
+lon = list(df.loc[df['Data'] == '08-Jul-17']['Lon'])
 
 # Splitting data into different stations
 d = split_stations(datapoints, stations, variables, lat, lon)
@@ -84,8 +94,12 @@ Saída 4 - 01-10-2017
 hd1, hd2, variables, datapoints, df = load('data/ctd/stations_01-10-2017_processed.cnv')
 
 # Loading metadata
-metadata = pd.read_csv('data/csv/coordenadas_0110.csv', sep = ';')
-stations, lat, lon = list(metadata['Ponto']), list(metadata['Lat']), list(metadata['Lon'])
+df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
+stations = list(df.loc[df['Data'] == '1-Oct-17']['Ponto'])
+lat = list(df.loc[df['Data'] == '1-Oct-17']['Lat'])
+lon = list(df.loc[df['Data'] == '1-Oct-17']['Lon'])
+
+[i.insert(3,i[2]) for i in [stations, lat, lon]]
 
 # Splitting data into different stations
 d = split_stations(datapoints, stations, variables, lat, lon)
