@@ -9,7 +9,7 @@ from cartopy.io.shapereader import Reader
 import geopandas as gp
 import numpy as np
 
-def main(dict):
+def main(arg):
 
 	# Shapefiles que vão gerar os limites territoriais.
 	sc = 'analysis/cartopy/shapefiles/SC-POLYGON.shp'
@@ -20,7 +20,7 @@ def main(dict):
 	# Vamos fazer uma lista para iterar um loop com a função add_geometries()
 	shapes = [sc, laguna, lagoas, rios]
 
-	for key in dict:
+	for key in arg:
 
 		# Iniciando a projeção e suas dimensões lat/lon
 		ax = plt.axes(projection=ccrs.PlateCarree())
@@ -29,9 +29,13 @@ def main(dict):
 		ax.gridlines(draw_labels=True)
 
 		# Os pontos de coleta e os dados vêm de arquivos csv
-		lats = np.genfromtxt(dict[key][0], delimiter=',')
-		lons = np.genfromtxt(dict[key][1], delimiter=',')
-		data = np.genfromtxt(dict[key][2], delimiter=',')
+		lats = np.genfromtxt(arg[key][0], delimiter=',')
+		lons = np.genfromtxt(arg[key][1], delimiter=',')
+		data = np.genfromtxt(arg[key][2], delimiter=',')
+		# Assim como a data que vai aparecer no plot
+		s = arg[key][0]
+		d, m, y = s[9:11], s[11:13], '2018'
+		dmy = ' '.join([d, m, y])
 
 		# Imagem de background
 		ax.stock_img()
@@ -45,6 +49,8 @@ def main(dict):
 			ccrs.PlateCarree(),
 			facecolor = 'skyblue')
 
+		ax.text(48.77, 28.41, dmy)
+
 		rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
 
 		plt.scatter(lons, lats, c=data, zorder=10, s=40)
@@ -55,10 +61,12 @@ def main(dict):
 
 
 all = {
+
 'saida1' : ('data/csv/2501_lat.csv', 'data/csv/2501_lon.csv', 'data/csv/2501_temp.csv'),
 'saida2' : ('data/csv/2705_lat.csv', 'data/csv/2705_lon.csv', 'data/csv/2705_temp.csv'),
 'saida3' : ('data/csv/0807_lat.csv', 'data/csv/0807_lon.csv', 'data/csv/0807_temp.csv'),
 'saida4' : ('data/csv/0110_lat.csv', 'data/csv/0110_lon.csv', 'data/csv/0110_temp.csv')
+
 }
 
 if __name__ == '__main__':
