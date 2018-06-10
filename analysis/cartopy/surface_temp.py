@@ -22,6 +22,8 @@ def main(arg):
 
 	for key in arg:
 
+		fig = plt.figure()
+
 		# Iniciando a projeção e suas dimensões lat/lon
 		ax = plt.axes(projection=ccrs.PlateCarree())
 		coords = (-48.9, -48.7, -28.4, -28.55)
@@ -35,7 +37,7 @@ def main(arg):
 		# Assim como a data que vai aparecer no plot
 		s = arg[key][0]
 		d, m, y = s[9:11], s[11:13], '2018'
-		dmy = ' '.join([d, m, y])
+		dmy = '-'.join([d, m, y])
 
 		# Imagem de background
 		ax.stock_img()
@@ -49,7 +51,8 @@ def main(arg):
 			ccrs.PlateCarree(),
 			facecolor = 'skyblue')
 
-		ax.text(48.77, 28.41, dmy)
+		ax.text(-48.745, -28.41, dmy, zorder=9,
+		 bbox = dict(facecolor='white', alpha=0.5))
 
 		rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
 
@@ -57,7 +60,8 @@ def main(arg):
 		plt.colorbar(shrink=0.7, ticks=range(int(min(data))-1,int(max(data))+1,1), pad=0.125,
 		).set_label('Temperature in C')
 
-		plt.show()
+		#plt.show()
+		plt.savefig('./' + dmy + '_temperature', transparent=True)
 
 
 all = {
