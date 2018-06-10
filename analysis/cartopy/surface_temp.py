@@ -67,7 +67,7 @@ def main(arg, arg2=None):
 		else:
 			plt.show()
 
-df = pd.read_csv('data/csv/all.csv', delimiter = ';')
+df = pd.read_csv('data/csv/coordenadas.csv', delimiter = ';')
 
 all = {
 
