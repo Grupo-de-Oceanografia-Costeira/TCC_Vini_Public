@@ -54,15 +54,15 @@ st_list = list(d.values())
 top, bot, names = [], [], []
 
 for i in st_list:
-    top.append(i['t090:'][0])
-    bot.append(i['t090:'][len(i)-1])
+    top.append(i['sal00:'][0])
+    bot.append(i['sal00:'][len(i)-1])
     names.append(i['STATION'][0])
 
 top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 
 df2 = pd.DataFrame([top, bot, names])
 df2 = df2.transpose()
-# df.to_csv('./25-jan-temp.csv')
+df2.to_csv('./25-jan-sal.csv')
 
 '''
 Saída 2 - 27-05-2017
@@ -95,15 +95,15 @@ st_list = list(d.values())
 top, bot, names = [], [], []
 
 for i in st_list:
-    top.append(i['t090:'][0])
-    bot.append(i['t090:'][len(i)-1])
+    top.append(i['sal00:'][0])
+    bot.append(i['sal00:'][len(i)-1])
     names.append(i['STATION'][0])
 
 top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 
 df2 = pd.DataFrame([top, bot, names])
 df2 = df2.transpose()
-# df2.to_csv('./27-may-temp.csv')
+df2.to_csv('./27-may-sal.csv')
 
 '''
 Saída 3 - 08-07-2017
@@ -132,8 +132,8 @@ st_list = list(d.values())
 top, bot, names = [], [], []
 
 for i in st_list:
-    top.append(i['t090:'][0])
-    bot.append(i['t090:'][len(i)-1])
+    top.append(i['sal00:'][0])
+    bot.append(i['sal00:'][len(i)-1])
     names.append(i['STATION'][0])
 
 top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
@@ -141,7 +141,7 @@ top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 df2 = pd.DataFrame([top, bot, names])
 df2 = df2.transpose()
 
-# df2.to_csv('./08-jul-temp.csv')
+df2.to_csv('./08-jul-sal.csv')
 
 '''
 Saída 4 - 01-10-2017
@@ -172,8 +172,8 @@ st_list = list(d.values())
 top, bot, names = [], [], []
 
 for i in st_list:
-    top.append(i['t090:'][0])
-    bot.append(i['t090:'][len(i)-1])
+    top.append(i['sal00:'][0])
+    bot.append(i['sal00:'][len(i)-1])
     names.append(i['STATION'][0])
 
 top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
@@ -181,4 +181,4 @@ top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 df2 = pd.DataFrame([top, bot, names])
 df2 = df2.transpose()
 
-# df2.to_csv('./01-oct-temp.csv')
+df2.to_csv('./01-oct-sal.csv')
