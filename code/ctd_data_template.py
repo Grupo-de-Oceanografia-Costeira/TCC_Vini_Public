@@ -38,6 +38,21 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
+# Let's put them all into lists
+st_list = list(d.values())
+
+# Picking out surface and bottom temperatures
+top, bot = [], []
+
+for i in st_list:
+    top.append(i['t090:'][0])
+    bot.append(i['t090:'][len(i)-1])
+
+top, bot = pd.Series(top), pd.Series(bot)
+
+df = pd.DataFrame([top, bot])
+df = df.transpose()
+df.to_csv('./25-jan-temp.csv')
 
 '''
 Saída 2 - 27-05-2017
@@ -65,6 +80,22 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
+# Let's put them all into lists
+st_list = list(d.values())
+
+top, bot = [], []
+
+for i in st_list:
+    top.append(i['t090:'][0])
+    bot.append(i['t090:'][len(i)-1])
+
+# Picking out surface and bottom temperatures
+top, bot = pd.Series(top), pd.Series(bot)
+
+df = pd.DataFrame([top, bot])
+df = df.transpose()
+df.to_csv('./27-may-temp.csv')
+
 '''
 Saída 3 - 08-07-2017
 '''
@@ -87,6 +118,20 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
+top, bot = [], []
+
+for i in st_list:
+    top.append(i['t090:'][0])
+    bot.append(i['t090:'][len(i)-1])
+
+# Picking out surface and bottom temperatures
+top, bot = pd.Series(top), pd.Series(bot)
+
+df = pd.DataFrame([top, bot])
+df = df.transpose()
+
+df.to_csv('./07-jul-temp.csv')
+
 '''
 Saída 4 - 01-10-2017
 '''
@@ -95,9 +140,9 @@ hd1, hd2, variables, datapoints, df = load('data/ctd/stations_01-10-2017_process
 
 # Loading metadata
 df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
-stations = list(df.loc[df['Data'] == '1-Oct-17']['Ponto'])
-lat = list(df.loc[df['Data'] == '1-Oct-17']['Lat'])
-lon = list(df.loc[df['Data'] == '1-Oct-17']['Lon'])
+stations = list(df.loc[df['Data'] == '01-Oct-17']['Ponto'])
+lat = list(df.loc[df['Data'] == '01-Oct-17']['Lat'])
+lon = list(df.loc[df['Data'] == '01-Oct-17']['Lon'])
 
 [i.insert(3,i[2]) for i in [stations, lat, lon]]
 
@@ -110,3 +155,17 @@ for st in d:
 
 # Creating variables with stations from the dictionary
 locals().update(d)
+
+top, bot = [], []
+
+for i in st_list:
+    top.append(i['t090:'][0])
+    bot.append(i['t090:'][len(i)-1])
+
+# Picking out surface and bottom temperatures
+top, bot = pd.Series(top), pd.Series(bot)
+
+df = pd.DataFrame([top, bot])
+df = df.transpose()
+
+df.to_csv('./01-oct-temp.csv')
