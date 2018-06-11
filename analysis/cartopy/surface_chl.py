@@ -75,7 +75,7 @@ all = {
 }
 
 if __name__ == '__main__':
-	main(all, './')
+	main(all)
 
 
 import pandas as pd
