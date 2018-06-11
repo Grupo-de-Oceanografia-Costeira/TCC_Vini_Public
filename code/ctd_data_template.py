@@ -119,6 +119,8 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
+st_list = list(d.values())
+
 top, bot, names = [], [], []
 
 for i in st_list:
@@ -131,7 +133,7 @@ top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 df = pd.DataFrame([top, bot, names])
 df = df.transpose()
 
-df.to_csv('./07-jul-temp.csv')
+df.to_csv('./08-jul-temp.csv')
 
 '''
 Saída 4 - 01-10-2017
@@ -156,6 +158,8 @@ for st in d:
 
 # Creating variables with stations from the dictionary
 locals().update(d)
+
+st_list = list(d.values())
 
 top, bot, names = [], [], []
 
