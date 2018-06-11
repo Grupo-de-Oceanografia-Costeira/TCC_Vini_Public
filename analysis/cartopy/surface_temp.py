@@ -1,4 +1,5 @@
 '''
+Area temperature plot, can be either surface or bottom temperature.
 '''
 
 # Importando as bibliotecas
@@ -56,8 +57,8 @@ def main(arg, arg2=None):
 
 		rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
 
-		plt.scatter(lons+0.005, lats, c=surf_data, zorder=10, s=40, vmin=18, vmax=32)
-		plt.scatter(lons-0.005, lats, c=bot_data, zorder=11, s=40, vmin=18, vmax=32)
+		plt.scatter(lons+0.003, lats, c=surf_data, zorder=11, s=50, vmin=18, vmax=32)
+		plt.scatter(lons, lats, c=bot_data, zorder=10, s=50, vmin=18, vmax=32)
 		plt.colorbar(shrink=0.7, ticks=range(18,31,4), pad=0.125,
 		).set_label('Temperature in C')
 
@@ -78,4 +79,4 @@ all = {
 }
 
 if __name__ == '__main__':
-	main(all)
+	main(all, './img/temperature/both')

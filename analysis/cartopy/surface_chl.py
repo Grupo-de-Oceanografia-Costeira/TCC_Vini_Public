@@ -1,4 +1,5 @@
 '''
+Area chlorophyll plot.
 '''
 
 # Importando as bibliotecas
