@@ -15,20 +15,20 @@ saida3 = 'data/ctd/stations_08-07-2017_processed.cnv'
 saida4 = 'data/ctd/stations_01-10-2017_processed.cnv'
 
 # Loading the data
-hd1, hd2, variables, datapoints, alldata = load(saida2)
+hd1, hd2, variables, datapoints, alldata = load(saida4)
 
 # Loading metadata
 df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
 dates = set(df['Data'])
 dates = list(dates)
-today = dates[0]
+today = dates[1]
 stations = list(df.loc[df['Data'] == today]['Ponto'])
 lat = list(df.loc[df['Data'] == today]['Lat'])
 lon = list(df.loc[df['Data'] == today]['Lon'])
 
 
-# [i.insert(3,i[2]) for i in [stations, lat, lon]] # saida1
-stations, lat, lon = ['test'] + stations, ['test'] + lat, ['test'] + lon # saida2
+[i.insert(3,'test') for i in [stations, lat, lon]] # saida1 e saida4
+# stations, lat, lon = ['test'] + stations, ['test'] + lat, ['test'] + lon # saida2
 
 
 # Splitting data into different stations
@@ -82,12 +82,12 @@ def sectionplot(arg, arg2 = None, arg3 = None):
     xi = np.linspace(np.min(x), np.max(x), 200)
     yi = np.linspace(np.min(y), np.max(y), 200)
     xi, yi = np.meshgrid(xi, yi)
-    zi = mlab.griddata(x, y, z, xi, yi)
+    zi = mlab.griddata(x, y, z, xi, yi, interp='linear') #interp = 'linear' se der erro no Natgrid
 
     # Plotting the gridded data
     plt.figure() # Starting the figure object
     plt.pcolormesh(xi,yi,zi) # Adding the colour mesh
-    plt.contour(xi, yi, zi, colors='k') # Contour lines
+    #plt.contour(xi, yi, zi, colors='k') # Contour lines
     plt.scatter(x,y,c=z) # Adding the scatter points
     plt.xticks(range(0, len(arg)+1), ["Estacao " + i['STATION'][0][2:] for i in arg])
     plt.colorbar().set_label('Salinidade')
@@ -105,5 +105,5 @@ def sectionplot(arg, arg2 = None, arg3 = None):
 
 
 if __name__ == '__main__':
-    arg = [st1, st7, st11, st14] # Test this with other stations
+    arg = [st1, st2, st7, st11, st14] # Test this with other stations
     sectionplot(arg, 'Canal da margem leste', './img/section/')
