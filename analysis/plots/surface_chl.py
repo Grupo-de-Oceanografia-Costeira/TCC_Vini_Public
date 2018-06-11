@@ -58,7 +58,7 @@ def main(arg, arg2=None):
 
 		plt.scatter(lons, lats, c=data, zorder=10, s=40, cmap='Greens', vmin=1, vmax=20)
 		plt.colorbar(shrink=0.7, pad=0.125,
-		).set_label('Relative chl-a values')
+		).set_label('[] de clorofila (mg/L)')
 
 		if arg2:
 			plt.savefig(arg2 + dmy + '_chlorophyll', transparent=True)
