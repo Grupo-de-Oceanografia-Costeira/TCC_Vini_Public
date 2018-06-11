@@ -7,12 +7,29 @@ Load data template.
 import pandas as pd
 from code.functions import *
 
+'''
+'''
+saida1 = 'data/ctd/stations_25-01-2017_processed.cnv'
+saida2 = 'data/ctd/stations_27-05-2017_processed.cnv'
+saida3 = 'data/ctd/stations_08-07-2017_processed.cnv'
+saida4 = 'data/ctd/stations_01-10-2017_processed.cnv'
+
 # Loading the data
-hd1, hd2, variables, datapoints, df = load('data/ctd/stations_01-10-2017_processed.cnv')
+hd1, hd2, variables, datapoints, alldata = load(saida2)
 
 # Loading metadata
-metadata = pd.read_csv('data/csv/coordenadas_0110.csv', sep = ';')
-stations, lat, lon = list(metadata['Ponto']), list(metadata['Lat']), list(metadata['Lon'])
+df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
+dates = set(df['Data'])
+dates = list(dates)
+today = dates[0]
+stations = list(df.loc[df['Data'] == today]['Ponto'])
+lat = list(df.loc[df['Data'] == today]['Lat'])
+lon = list(df.loc[df['Data'] == today]['Lon'])
+
+
+# [i.insert(3,i[2]) for i in [stations, lat, lon]] # saida1
+stations, lat, lon = ['test'] + stations, ['test'] + lat, ['test'] + lon # saida2
+
 
 # Splitting data into different stations
 d = split_stations(datapoints, stations, variables, lat, lon)
@@ -24,17 +41,13 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
-'''
-Section plot 01-10 - salinity
-'''
-
 # Plot dependencies
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
 import geopandas as gp
 import numpy as np
 
-def sectionplot(arg):
+def sectionplot(arg, arg2 = None, arg3 = None):
     # Arrays storing salinity data in sals list
     sals = []
     for i in arg:
@@ -76,12 +89,21 @@ def sectionplot(arg):
     plt.pcolormesh(xi,yi,zi) # Adding the colour mesh
     plt.contour(xi, yi, zi, colors='k') # Contour lines
     plt.scatter(x,y,c=z) # Adding the scatter points
-    plt.colorbar()
+    plt.xticks(range(0, len(arg)+1), ["Estacao " + i['STATION'][0][2:] for i in arg])
+    plt.colorbar().set_label('Salinidade')
     plt.axis([np.min(x), np.max(x), np.min(y), np.max(y)])
     plt.gca().invert_yaxis()
-    plt.show()
+    plt.ylabel('Profundidade (m)')
+
+    if arg2:
+        plt.title(arg2 + ' - ' + today)
+
+    if arg3:
+        plt.savefig(arg3+arg2.split()[0].strip()+'_section_'+today)
+    else:
+        plt.show()
 
 
 if __name__ == '__main__':
-    arg = [st4, st5, st6] # Test this with other stations
-    sectionplot(arg)
+    arg = [st1, st7, st11, st14] # Test this with other stations
+    sectionplot(arg, 'Canal da margem leste', './img/section/')
