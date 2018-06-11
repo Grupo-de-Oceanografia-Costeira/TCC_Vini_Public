@@ -64,7 +64,7 @@ def main(arg, arg2=None):
 		else:
 			plt.show()
 
-df = pd.read_csv('data/csv/coordenadas_ecc.csv', delimiter = ';')
+df = pd.read_csv('data/csv/coordenadas.csv', delimiter = ';')
 
 all = {
 
@@ -81,7 +81,7 @@ if __name__ == '__main__':
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('data/csv/coordenadas_ecc.csv', delimiter = ';')
+df = pd.read_csv('data/csv/coordenadas.csv', delimiter = ';')
 
 t1 = pd.read_csv('data/csv/2501_temp.csv', header = None)
 t2 = pd.read_csv('data/csv/2705_temp.csv', header = None)
