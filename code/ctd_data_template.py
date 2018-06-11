@@ -42,15 +42,16 @@ locals().update(d)
 st_list = list(d.values())
 
 # Picking out surface and bottom temperatures
-top, bot = [], []
+top, bot, names = [], [], []
 
 for i in st_list:
     top.append(i['t090:'][0])
     bot.append(i['t090:'][len(i)-1])
+    names.append(i['STATION'][0])
 
-top, bot = pd.Series(top), pd.Series(bot)
+top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 
-df = pd.DataFrame([top, bot])
+df = pd.DataFrame([top, bot, names])
 df = df.transpose()
 df.to_csv('./25-jan-temp.csv')
 
@@ -83,16 +84,16 @@ locals().update(d)
 # Let's put them all into lists
 st_list = list(d.values())
 
-top, bot = [], []
+top, bot, names = [], [], []
 
 for i in st_list:
     top.append(i['t090:'][0])
     bot.append(i['t090:'][len(i)-1])
+    names.append(i['STATION'][0])
 
-# Picking out surface and bottom temperatures
-top, bot = pd.Series(top), pd.Series(bot)
+top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 
-df = pd.DataFrame([top, bot])
+df = pd.DataFrame([top, bot, names])
 df = df.transpose()
 df.to_csv('./27-may-temp.csv')
 
@@ -118,16 +119,16 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
-top, bot = [], []
+top, bot, names = [], [], []
 
 for i in st_list:
     top.append(i['t090:'][0])
     bot.append(i['t090:'][len(i)-1])
+    names.append(i['STATION'][0])
 
-# Picking out surface and bottom temperatures
-top, bot = pd.Series(top), pd.Series(bot)
+top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 
-df = pd.DataFrame([top, bot])
+df = pd.DataFrame([top, bot, names])
 df = df.transpose()
 
 df.to_csv('./07-jul-temp.csv')
@@ -156,16 +157,16 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
-top, bot = [], []
+top, bot, names = [], [], []
 
 for i in st_list:
     top.append(i['t090:'][0])
     bot.append(i['t090:'][len(i)-1])
+    names.append(i['STATION'][0])
 
-# Picking out surface and bottom temperatures
-top, bot = pd.Series(top), pd.Series(bot)
+top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 
-df = pd.DataFrame([top, bot])
+df = pd.DataFrame([top, bot, names])
 df = df.transpose()
 
 df.to_csv('./01-oct-temp.csv')
