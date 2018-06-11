@@ -56,7 +56,7 @@ def main(arg, arg2=None):
 
 		rios.plot(ax=ax, color = 'skyblue', lw = 4.0)
 
-		plt.scatter(lons, lats, c=data, zorder=10, s=40, cmap='Greens', vmin=1, vmax=20)
+		plt.scatter(lons, lats, c=data, zorder=10, s=40, cmap='Greens', vmin=1, vmax=10)
 		plt.colorbar(shrink=0.7, pad=0.125,
 		).set_label('[] de clorofila (mg/L)')
 
