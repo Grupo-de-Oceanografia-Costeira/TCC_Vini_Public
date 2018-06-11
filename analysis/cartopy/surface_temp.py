@@ -35,8 +35,9 @@ def main(arg, arg2=None):
 		# Os pontos de coleta e os dados vêm de arquivos csv
 		lats = arg[key][0].values
 		lons = arg[key][1].values
-		data = np.genfromtxt(arg[key][2], delimiter=',')
-		dmy = arg[key][3]
+		surf_data = arg[key][2].values
+		bot_data = arg[key][3].values
+		dmy = arg[key][4]
 
 		# Imagem de background
 		ax.stock_img()
@@ -55,7 +56,8 @@ def main(arg, arg2=None):
 
 		rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
 
-		plt.scatter(lons, lats, c=data, zorder=10, s=40, vmin=18, vmax=32)
+		plt.scatter(lons+0.005, lats, c=surf_data, zorder=10, s=40, vmin=18, vmax=32)
+		plt.scatter(lons-0.005, lats, c=bot_data, zorder=11, s=40, vmin=18, vmax=32)
 		plt.colorbar(shrink=0.7, ticks=range(18,31,4), pad=0.125,
 		).set_label('Temperature in C')
 
@@ -68,10 +70,10 @@ df = pd.read_csv('data/csv/coordenadas.csv', delimiter = ';')
 
 all = {
 
-'saida1' : (df.loc[df['Data'] == '25-Jan-17']['Lat'], df.loc[df['Data'] == '25-Jan-17']['Lon'], 'data/csv/2501_temp.csv', '25-Jan-2017'),
-'saida2' : (df.loc[df['Data'] == '27-May-17']['Lat'], df.loc[df['Data'] == '27-May-17']['Lon'], 'data/csv/2705_temp.csv', '27-May-2017'),
-'saida3' : (df.loc[df['Data'] == '08-Jul-17']['Lat'], df.loc[df['Data'] == '08-Jul-17']['Lon'], 'data/csv/0807_temp.csv', '08-Jul-2017'),
-'saida4' : (df.loc[df['Data'] == '01-Oct-17']['Lat'], df.loc[df['Data'] == '01-Oct-17']['Lon'], 'data/csv/0110_temp.csv', '01-Oct-2017')
+'saida1' : (df.loc[df['Data'] == '25-Jan-17']['Lat'], df.loc[df['Data'] == '25-Jan-17']['Lon'], df.loc[df['Data'] == '25-Jan-17']['Surf Temp'], df.loc[df['Data'] == '25-Jan-17']['Bot Temp'], '25-Jan-2017'),
+'saida2' : (df.loc[df['Data'] == '27-May-17']['Lat'], df.loc[df['Data'] == '27-May-17']['Lon'], df.loc[df['Data'] == '27-May-17']['Surf Temp'], df.loc[df['Data'] == '27-May-17']['Bot Temp'], '27-May-2017'),
+'saida3' : (df.loc[df['Data'] == '08-Jul-17']['Lat'], df.loc[df['Data'] == '08-Jul-17']['Lon'], df.loc[df['Data'] == '08-Jul-17']['Surf Temp'], df.loc[df['Data'] == '08-Jul-17']['Bot Temp'], '08-Jul-2017'),
+'saida4' : (df.loc[df['Data'] == '01-Oct-17']['Lat'], df.loc[df['Data'] == '01-Oct-17']['Lon'], df.loc[df['Data'] == '01-Oct-17']['Surf Temp'], df.loc[df['Data'] == '01-Oct-17']['Bot Temp'], '01-Oct-2017')
 
 }
 
