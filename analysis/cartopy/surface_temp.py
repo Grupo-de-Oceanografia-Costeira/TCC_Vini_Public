@@ -36,10 +36,7 @@ def main(arg, arg2=None):
 		lats = arg[key][0].values
 		lons = arg[key][1].values
 		data = np.genfromtxt(arg[key][2], delimiter=',')
-		# Assim como a data que vai aparecer no plot
-		s = arg[key][2]
-		d, m, y = s[9:11], s[11:13], '2017'
-		dmy = '-'.join([d, m, y])
+		dmy = arg[key][3]
 
 		# Imagem de background
 		ax.stock_img()
@@ -58,8 +55,8 @@ def main(arg, arg2=None):
 
 		rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
 
-		plt.scatter(lons, lats, c=data, zorder=10, s=40)
-		plt.colorbar(shrink=0.7, ticks=range(int(min(data))-1,int(max(data))+1,1), pad=0.125,
+		plt.scatter(lons, lats, c=data, zorder=10, s=40, vmin=18, vmax=32)
+		plt.colorbar(shrink=0.7, ticks=range(18,31,4), pad=0.125,
 		).set_label('Temperature in C')
 
 		if arg2:
@@ -67,14 +64,14 @@ def main(arg, arg2=None):
 		else:
 			plt.show()
 
-df = pd.read_csv('data/csv/coordenadas.csv', delimiter = ';')
+df = pd.read_csv('data/csv/coordenadas_ecc.csv', delimiter = ';')
 
 all = {
 
-'saida1' : (df.loc[df['Data'] == '25-Jan-17']['Lat'], df.loc[df['Data'] == '25-Jan-17']['Lon'], 'data/csv/2501_temp.csv'),
-'saida2' : (df.loc[df['Data'] == '27-May-17']['Lat'], df.loc[df['Data'] == '27-May-17']['Lon'], 'data/csv/2705_temp.csv'),
-'saida3' : (df.loc[df['Data'] == '08-Jul-17']['Lat'], df.loc[df['Data'] == '08-Jul-17']['Lon'], 'data/csv/0807_temp.csv'),
-'saida4' : (df.loc[df['Data'] == '1-Oct-17']['Lat'], df.loc[df['Data'] == '1-Oct-17']['Lon'], 'data/csv/0110_temp.csv')
+'saida1' : (df.loc[df['Data'] == '25-Jan-17']['Lat'], df.loc[df['Data'] == '25-Jan-17']['Lon'], 'data/csv/2501_temp.csv', '25-Jan-2017'),
+'saida2' : (df.loc[df['Data'] == '27-May-17']['Lat'], df.loc[df['Data'] == '27-May-17']['Lon'], 'data/csv/2705_temp.csv', '27-May-2017'),
+'saida3' : (df.loc[df['Data'] == '08-Jul-17']['Lat'], df.loc[df['Data'] == '08-Jul-17']['Lon'], 'data/csv/0807_temp.csv', '08-Jul-2017'),
+'saida4' : (df.loc[df['Data'] == '01-Oct-17']['Lat'], df.loc[df['Data'] == '01-Oct-17']['Lon'], 'data/csv/0110_temp.csv', '01-Oct-2017')
 
 }
 

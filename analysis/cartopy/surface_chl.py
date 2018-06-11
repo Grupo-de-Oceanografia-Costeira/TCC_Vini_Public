@@ -35,11 +35,8 @@ def main(arg, arg2=None):
 		# Os pontos de coleta e os dados vêm de arquivos csv
 		lats = arg[key][0].values
 		lons = arg[key][1].values
-		data = np.genfromtxt(arg[key][2], delimiter=';')
-		# Assim como a data que vai aparecer no plot
-		s = arg[key][2]
-		d, m, y = s[9:11], s[11:13], '2017'
-		dmy = '-'.join([d, m, y])
+		data = arg[key][2].values
+		dmy = arg[key][3]
 
 		# Imagem de background
 		ax.stock_img()
@@ -54,29 +51,41 @@ def main(arg, arg2=None):
 			facecolor = 'skyblue')
 
 		ax.text(-48.745, -28.41, dmy, zorder=9,
-		 bbox = dict(facecolor='white', alpha=0.5))
+		  bbox = dict(facecolor='white', alpha=0.5))
 
 		rios.plot(ax=ax, color = 'skyblue', edgecolor='black')
 
-		plt.scatter(lons, lats, c=data, zorder=10, s=40, cmap='Greens')
+		plt.scatter(lons, lats, c=data, zorder=10, s=40, cmap='Greens', vmin=1, vmax=20)
 		plt.colorbar(shrink=0.7, pad=0.125,
-		).set_label('Temperature in C')
+		).set_label('Relative chl-a values')
 
 		if arg2:
-			plt.savefig(arg2 + dmy + '_temperature', transparent=True)
+			plt.savefig(arg2 + dmy + '_chlorophyll', transparent=True)
 		else:
 			plt.show()
 
-df = pd.read_csv('data/csv/coordenadas.csv', delimiter = ';')
+df = pd.read_csv('data/csv/coordenadas_ecc.csv', delimiter = ';')
 
 all = {
 
-'saida1' : (df.loc[df['Data'] == '25-Jan-17']['Lat'], df.loc[df['Data'] == '25-Jan-17']['Lon'], 'data/cc_nutrients/saida1cc.csv'),
-#'saida2' : (df.loc[df['Data'] == '27-May-17']['Lat'], df.loc[df['Data'] == '27-May-17']['Lon'], 'data/csv/2705_temp.csv'),
-'saida3' : (df.loc[df['Data'] == '08-Jul-17']['Lat'], df.loc[df['Data'] == '08-Jul-17']['Lon'], 'data/cc_nutrients/saida3cc.csv'),
-'saida4' : (df.loc[df['Data'] == '1-Oct-17']['Lat'], df.loc[df['Data'] == '1-Oct-17']['Lon'], 'data/cc_nutrients/saida4cc.csv')
+'saida1' : (df.loc[df['Data'] == '25-Jan-17']['Lat'], df.loc[df['Data'] == '25-Jan-17']['Lon'], df.loc[df['Data'] == '25-Jan-17']['CC'], '25-Jan-2017'),
+'saida3' : (df.loc[df['Data'] == '08-Jul-17']['Lat'], df.loc[df['Data'] == '08-Jul-17']['Lon'], df.loc[df['Data'] == '08-Jul-17']['CC'], '08-Jul-2017'),
+'saida4' : (df.loc[df['Data'] == '01-Oct-17']['Lat'], df.loc[df['Data'] == '01-Oct-17']['Lon'], df.loc[df['Data'] == '01-Oct-17']['CC'], '01-Oct-2017')
 
 }
 
 if __name__ == '__main__':
-	main(all)
+	main(all, './')
+
+
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('data/csv/coordenadas_ecc.csv', delimiter = ';')
+
+t1 = pd.read_csv('data/csv/2501_temp.csv', header = None)
+t2 = pd.read_csv('data/csv/2705_temp.csv', header = None)
+t3 = pd.read_csv('data/csv/0807_temp.csv', header = None)
+t4 = pd.read_csv('data/csv/2705_temp.csv', header = None)
+
+t1, t2, t3, t4 = list(t1.loc[0]), list(t2.loc[0]), list(t3.loc[0]), list(t4.loc[0])
