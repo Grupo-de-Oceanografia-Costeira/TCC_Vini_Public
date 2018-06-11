@@ -7,8 +7,6 @@ Load data template.
 import pandas as pd
 from code.functions import *
 
-'''
-'''
 saida1 = 'data/ctd/stations_25-01-2017_processed.cnv'
 saida2 = 'data/ctd/stations_27-05-2017_processed.cnv'
 saida3 = 'data/ctd/stations_08-07-2017_processed.cnv'
