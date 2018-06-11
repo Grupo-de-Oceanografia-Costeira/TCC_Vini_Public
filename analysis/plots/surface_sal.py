@@ -36,8 +36,8 @@ def main(arg, arg2=None):
 		# Os pontos de coleta e os dados vêm de arquivos csv
 		lats = arg[key][0].values
 		lons = arg[key][1].values
-		surf_data = arg[key][2].values
-		bot_data = arg[key][3].values
+		bot_data = arg[key][2].values
+		surf_data = arg[key][3].values
 		dmy = arg[key][4]
 
 		# Imagem de background
