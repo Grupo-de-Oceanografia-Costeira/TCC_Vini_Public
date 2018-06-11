@@ -53,7 +53,7 @@ top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 
 df = pd.DataFrame([top, bot, names])
 df = df.transpose()
-df.to_csv('./25-jan-temp.csv')
+# df.to_csv('./25-jan-temp.csv')
 
 '''
 Saída 2 - 27-05-2017
@@ -95,7 +95,7 @@ top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 
 df = pd.DataFrame([top, bot, names])
 df = df.transpose()
-df.to_csv('./27-may-temp.csv')
+# df.to_csv('./27-may-temp.csv')
 
 '''
 Saída 3 - 08-07-2017
@@ -133,7 +133,7 @@ top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 df = pd.DataFrame([top, bot, names])
 df = df.transpose()
 
-df.to_csv('./08-jul-temp.csv')
+# df.to_csv('./08-jul-temp.csv')
 
 '''
 Saída 4 - 01-10-2017
@@ -173,4 +173,4 @@ top, bot, names = pd.Series(top), pd.Series(bot), pd.Series(names)
 df = pd.DataFrame([top, bot, names])
 df = df.transpose()
 
-df.to_csv('./01-oct-temp.csv')
+# df.to_csv('./01-oct-temp.csv')
