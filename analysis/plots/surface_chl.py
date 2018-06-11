@@ -76,4 +76,4 @@ all = {
 }
 
 if __name__ == '__main__':
-	main(all)
+	main(all, 'img/chlorophyll/')
