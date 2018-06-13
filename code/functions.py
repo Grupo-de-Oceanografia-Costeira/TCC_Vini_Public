@@ -128,7 +128,7 @@ def plot(arg1, arg2=None):
         fname = arg2 + '/' + arg1['Station ID'][0] + '.png'
         plt.savefig(fname)
 
-def sectionplot(arg, arg2 = None, arg3 = None):
+def sectionplot_sal(arg, arg2 = None, arg3 = None):
     # Arrays storing salinity data in sals list
     sals = []
     for i in arg:
