@@ -5,6 +5,9 @@ import os
 import glob
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
+import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
+import geopandas as gp
 
 def load(cnv):
 
@@ -124,3 +127,59 @@ def plot(arg1, arg2=None):
     else:
         fname = arg2 + '/' + arg1['Station ID'][0] + '.png'
         plt.savefig(fname)
+
+def sectionplot(arg, arg2 = None, arg3 = None):
+    # Arrays storing salinity data in sals list
+    sals = []
+    for i in arg:
+        sals.append(np.array(i['sal00:']))
+
+    # Setting salinity range for colorbar
+    sal_range = np.arange(1, 40.1, 1)
+
+    # Arrays storing depth data in deps list
+    deps = []
+    for i in arg:
+        deps.append(np.array(i['depSM:']))
+
+    # Setting the x axis values for salinity
+    x = np.array([])
+    ix = 0
+    for i in sals:
+        x = np.append(x, [ix]*len(i))
+        ix += 1
+
+    # Setting the y axis values for depth
+    y = np.array([])
+    ix = 0
+    for i in deps:
+        y = np.append(y, i)
+        ix += 1
+
+    # Setting the color values
+    z = np.concatenate(tuple(sals))
+
+    # Generating the gridded data
+    xi = np.linspace(np.min(x), np.max(x), 200)
+    yi = np.linspace(np.min(y), np.max(y), 200)
+    xi, yi = np.meshgrid(xi, yi)
+    zi = mlab.griddata(x, y, z, xi, yi, interp='linear') #interp = 'linear' se der erro no Natgrid
+
+    # Plotting the gridded data
+    plt.figure() # Starting the figure object
+    plt.pcolormesh(xi,yi,zi, vmin = z.min(), vmax = z.max()) # Adding the colour mesh
+    plt.contour(xi, yi, zi, colors='k') # Contour lines
+    plt.scatter(x,y,c=z, vmin = z.min(), vmax = z.max()) # Adding the scatter points
+    plt.xticks(range(0, len(arg)+1), ["Estacao " + i['STATION'][0][2:] for i in arg])
+    plt.colorbar().set_label('Salinidade')
+    plt.axis([np.min(x), np.max(x), np.min(y), np.max(y)])
+    plt.gca().invert_yaxis()
+    plt.ylabel('Profundidade (m)')
+
+    if arg2:
+        plt.title(arg2)
+
+    if arg3:
+        plt.savefig(arg3+arg2.split()[0].strip()+'_section_', transparent=True)
+    else:
+        plt.show()
