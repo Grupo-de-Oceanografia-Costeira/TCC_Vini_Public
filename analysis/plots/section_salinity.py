@@ -81,9 +81,9 @@ def sectionplot(arg, arg2 = None, arg3 = None):
 
     # Plotting the gridded data
     plt.figure() # Starting the figure object
-    plt.pcolormesh(xi,yi,zi) # Adding the colour mesh
+    plt.pcolormesh(xi,yi,zi, vmin = z.min(), vmax = z.max()) # Adding the colour mesh
     plt.contour(xi, yi, zi, colors='k') # Contour lines
-    plt.scatter(x,y,c=z) # Adding the scatter points
+    plt.scatter(x,y,c=z, vmin = z.min(), vmax = z.max()) # Adding the scatter points
     plt.xticks(range(0, len(arg)+1), ["Estacao " + i['STATION'][0][2:] for i in arg])
     plt.colorbar().set_label('Salinidade')
     plt.axis([np.min(x), np.max(x), np.min(y), np.max(y)])

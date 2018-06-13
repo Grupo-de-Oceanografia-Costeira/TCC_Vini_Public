@@ -51,14 +51,14 @@ def main(arg, arg2=None):
 			ccrs.PlateCarree(),
 			facecolor = 'skyblue')
 
-		ax.text(-48.745, -28.41, dmy, zorder=9,
+		ax.text(-48.746, -28.41, dmy, zorder=9,
 		  bbox = dict(facecolor='white', alpha=0.5))
 
 		rios.plot(ax=ax, color = 'skyblue', lw = 4.0)
 
-		plt.scatter(lons, lats, c=data, zorder=10, s=40, cmap='Greens', vmin=1, vmax=10)
+		plt.scatter(lons, lats, c=data, zorder=10, s=60, cmap='Greens', vmin=1, vmax=10)
 		plt.colorbar(shrink=0.7, pad=0.125,
-		).set_label('[] de clorofila (mg/L)')
+		).set_label('Clorofila a (mg/L)')
 
 		if arg2:
 			plt.savefig(arg2 + dmy + '_chlorophyll', transparent=True)

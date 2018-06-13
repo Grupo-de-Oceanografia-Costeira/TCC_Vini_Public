@@ -52,13 +52,13 @@ def main(arg, arg2=None):
 			ccrs.PlateCarree(),
 			facecolor = 'skyblue')
 
-		ax.text(-48.745, -28.41, dmy, zorder=9,
+		ax.text(-48.746, -28.41, dmy, zorder=9,
 		 bbox = dict(facecolor='white', alpha=0.5))
 
 		rios.plot(ax=ax, color = 'skyblue', lw=4.0)
 
 		plt.scatter(lons, lats+0.003, c=surf_data, zorder=11, s=50, vmin=18, vmax=32, cmap = 'viridis')
-		plt.scatter(lons, lats, c=bot_data, zorder=10, s=50, vmin=18, vmax=32, cmap = 'viridis')
+		plt.scatter(lons, lats, c=bot_data, zorder=10, s=60, vmin=18, vmax=32, cmap = 'viridis')
 		plt.colorbar(shrink=0.7, ticks=range(18,31,4), pad=0.125,
 		).set_label('Salinidade')
 
