@@ -14,11 +14,10 @@ def load(cnv):
     '''
     This function opens our .cnv file and reads it. It then creates a list
     with five elements: two lists containing the file headers (that start with
-    * and with #), a list with variables, a list with the data itself, and a
-    pandas dataframe with the data.
+    * and with #), a list with variables, and a list of lists with the data itself.
 
     Run like the following:
-    hd1, hd2, variables, datapoints, df = load('file')
+    hd1, hd2, variables, datapoints = load('file')
     '''
 
     o = open(cnv)
@@ -47,7 +46,7 @@ def load(cnv):
     datapoints = filter(None, datapoints)
     df = pd.DataFrame(datapoints, columns = variables)
 
-    return hd1, hd2, variables, datapoints, df
+    return hd1, hd2, variables, datapoints
 
 def split_stations(arg1, arg2, arg3 = None, arg4 = None, arg5 = None):
     '''
@@ -91,7 +90,7 @@ def split_stations(arg1, arg2, arg3 = None, arg4 = None, arg5 = None):
 
 def remove_upcast(station):
     depth = station['depSM:']
-    up = depth.idxmax() + 1 # we want the index, not the value
+    up = depth.idxmax() + 1
     station = station.loc[:up]
     return station
 
@@ -99,9 +98,6 @@ def remove_upcast(station):
 def plot(arg1, arg2=None):
     '''
     Easy temperature, salinity and density multiplot
-
-    To-do:
-    - xlim = span from 'hd2' variable
     '''
 
     fig,(ax1, ax2, ax3) = plt.subplots(1, 3, sharey = True)
