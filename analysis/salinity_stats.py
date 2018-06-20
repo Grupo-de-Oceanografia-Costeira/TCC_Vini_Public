@@ -6,7 +6,7 @@ from scipy import stats
 
 df = pd.read_csv('data/csv/coordenadas.csv', delimiter = ';')
 
-dsal = df['Surf Sal'] / df['Bot Sal']
+dsal = df['Surf Sal']
 data = df['Data']
 stations = df['Ponto']
 df = pd.DataFrame([dsal, data, stations])
@@ -62,9 +62,9 @@ pri_canal = pri[pri['sal'].isin(['st1', 'st2','st7', 'st11', 'st14'])]
 pri_rio = pri[pri['sal'].isin(['st4','st5', 'st6'])]
 pri_banco = pri[pri['sal'].isin(['st15', 'st16'])]
 
-stats.kruskal(ver, inv)
-stats.kruskal(inv, pri)
-stats.kruskal(pri, ver)
+stats.kruskal(verS, invS)
+stats.kruskal(invS, priS)
+stats.kruskal(priS, verS)
 stats.kruskal(verS, invS, priS)
 
 stats.kruskal(pri_canal, pri_rio)
