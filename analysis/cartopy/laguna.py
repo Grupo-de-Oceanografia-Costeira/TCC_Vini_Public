@@ -15,7 +15,7 @@ def main():
 
 	# Iniciando a projeção e suas dimensões lat/lon
 	ax = plt.axes(projection=ccrs.PlateCarree())
-	coords = (-48.87, -48.73, -28.4, -28.55)
+	coords = (-48.9, -48.63, -28.2, -28.6)
 	ax.set_extent(coords)
 	ax.gridlines(draw_labels=True)
 
@@ -26,8 +26,8 @@ def main():
 	rios = gp.read_file('analysis/cartopy/shapefiles/RiosComplexoLagunar.shp')
 
 	# Os pontos de coleta e os dados vêm de arquivos csv
-	lons = np.genfromtxt('data/csv/0807_lon.csv', delimiter=',')
-	lats = np.genfromtxt('data/csv/0807_lat.csv', delimiter=',')
+	#lons = list(df.loc[df['Data'] == '25-Jan-17']['Lon'])
+	#lats = list(df.loc[df['Data'] == '25-Jan-17']['Lat'])
 
 	ax.stock_img()
 
@@ -42,9 +42,9 @@ def main():
 
 	rios.plot(ax=ax, color = 'skyblue', lw=4.0)
 
-	plt.scatter(lons, lats, color='black', zorder=10, s=40)
+	#plt.scatter(lons, lats, color='black', zorder=10, s=40)
 
-	plt.savefig('img/estacoes.png', transparent=True)
+	plt.savefig('img/lagoas.png', transparent=True)
 
 if __name__ == '__main__':
 	main()
