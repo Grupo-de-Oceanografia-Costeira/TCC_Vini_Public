@@ -16,7 +16,7 @@ saida1 = 'data/ctd/stations_25-01-2017_processed.cnv'
 saida2 = 'data/ctd/stations_27-05-2017_processed.cnv'
 saida3 = 'data/ctd/stations_08-07-2017_processed.cnv'
 saida4 = 'data/ctd/stations_01-10-2017_processed.cnv'
-df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
+df = pd.read_csv('data/csv/coordenadas.csv', sep=';')
 dates = set(df['Data'])
 dates = list(dates)
 
@@ -34,7 +34,7 @@ lat = list(df.loc[df['Data'] == today]['Lat'])
 lon = list(df.loc[df['Data'] == today]['Lon'])
 
 
-[i.insert(3,i[2]) for i in [stations, lat, lon]]
+[i.insert(3, i[2]) for i in [stations, lat, lon]]
 
 
 # Splitting data into different stations
@@ -155,7 +155,7 @@ stations = list(df.loc[df['Data'] == today]['Ponto'])
 lat = list(df.loc[df['Data'] == today]['Lat'])
 lon = list(df.loc[df['Data'] == today]['Lon'])
 
-[i.insert(3,i[2]) for i in [stations, lat, lon]]
+[i.insert(3, i[2]) for i in [stations, lat, lon]]
 
 # Splitting data into different stations
 d = split_stations(datapoints, stations, variables, lat, lon)
