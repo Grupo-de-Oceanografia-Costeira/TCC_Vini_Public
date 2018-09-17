@@ -1,7 +1,11 @@
 '''
 '''
 # Importing libraries
+import numpy as np
 import pandas as pd
+import geopandas as gp
+import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
 from code.functions import *
 
 saida1 = 'data/ctd/stations_25-01-2017_processed.cnv'
@@ -35,11 +39,6 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
-# Plot dependencies
-import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
-import geopandas as gp
-import numpy as np
 
 def sectionplot(arg, arg2 = None, arg3 = None):
     # Arrays storing salinity data in sals list

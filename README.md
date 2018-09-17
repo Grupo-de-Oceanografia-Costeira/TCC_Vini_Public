@@ -11,7 +11,3 @@ Esse é o repositório público do meu TCC. Contém dados de CTD e de clorofila 
 [req.txt](./req.txt) contém as dependências para rodar os códigos do repositório (principalmente Pandas, Matplotlib e Cartopy).
 
 Para dúvidas, sugestões ou correspondência, abra um issue.
-
-Vinícius.
-
-This is a public repository for my degree conclusion essay. If you want to contact me, please open an issue.
