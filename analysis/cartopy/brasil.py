@@ -9,11 +9,12 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import matplotlib.patches as patches
 
+
 # Vamos definir a função main(), que vai gerar o plot.
 def main():
 
 	# Iniciando a projeção e suas dimensões lat/lon
-    ax = plt.axes(projection=ccrs.Orthographic(-50,-10))
+    ax = plt.axes(projection=ccrs.Orthographic(-50, -10))
 
     # Adicionand cfeatures
     ax.add_feature(cfeature.COASTLINE)
@@ -26,7 +27,8 @@ def main():
     ax.set_global()
     ax.gridlines()
 
-    plt.savefig('img/brasil.png',transparent=True)
+    plt.savefig('img/brasil.png', transparent=True)
+
 
 if __name__ == '__main__':
     main()
