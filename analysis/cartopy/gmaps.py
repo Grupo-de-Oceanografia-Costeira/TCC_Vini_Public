@@ -11,6 +11,7 @@ import cartopy.crs as ccrs
 from cartopy.io import shapereader
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 
+
 # Plot function
 def make_map(projection=ccrs.PlateCarree()):
     fig, ax = plt.subplots(figsize=(9, 13),
@@ -20,6 +21,7 @@ def make_map(projection=ccrs.PlateCarree()):
     gl.xformatter = LONGITUDE_FORMATTER
     gl.yformatter = LATITUDE_FORMATTER
     return fig, ax
+
 
 # Google Maps Tiles
 def gmaps():
@@ -31,8 +33,10 @@ def gmaps():
 
     plt.show()
 
+
 if __name__ == '__main__':
     gmaps()
+
 
 # GSHHS data
 def gshhs():
@@ -43,13 +47,19 @@ def gshhs():
 
     shp = shapereader.Reader('./analysis/cartopy/shapefiles/santacatarina.shp')
     for record, geometry in zip(shp.records(), shp.geometries()):
-        ax.add_geometries([geometry], ccrs.PlateCarree(), facecolor = 'beige',
-                          edgecolor = 'black')
+        ax.add_geometries(
+            [geometry],
+            crs.PlateCarree(),
+            facecolor='beige',
+            edgecolor='black'
+        )
 
     plt.show()
 
+
 if __name__ == '__main__':
     gshhs()
+
 
 # OpenStreetMap data files
 def osm():
@@ -62,8 +72,10 @@ def osm():
         ax.add_geometries([geometry], ccrs.PlateCarree(), facecolor='w',
                           edgecolor='black')
 
+
 if __name__ == '__main__':
     osm()
+
 
 # OpenStreetMap API
 def osm_api():
@@ -74,6 +86,7 @@ def osm_api():
     ax.add_image(request, 10)
 
     plt.show()
+
 
 if __name__ == '__main__':
     osm_api()

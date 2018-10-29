@@ -3,17 +3,16 @@ Plot da localização das estações, a ser usado na seção de "Área de estudo
 '''
 
 # Importando as bibliotecas
+import geopandas as gp
+import numpy as np
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from cartopy.io.shapereader import Reader
-import geopandas as gp
-import numpy as np
 
-# Vamos definir a função main(), que vai gerar o plot.
+
 def main():
-
-	# Iniciando a projeção e suas dimensões lat/lon
+	# Iniciando a projeção e suas dimensões
 	ax = plt.axes(projection=ccrs.PlateCarree())
 	coords = (-48.9, -48.63, -28.2, -28.6)
 	ax.set_extent(coords)
@@ -26,25 +25,29 @@ def main():
 	rios = gp.read_file('analysis/cartopy/shapefiles/RiosComplexoLagunar.shp')
 
 	# Os pontos de coleta e os dados vêm de arquivos csv
-	#lons = list(df.loc[df['Data'] == '25-Jan-17']['Lon'])
-	#lats = list(df.loc[df['Data'] == '25-Jan-17']['Lat'])
+	# lons = list(df.loc[df['Data'] == '25-Jan-17']['Lon'])
+	# lats = list(df.loc[df['Data'] == '25-Jan-17']['Lat'])
 
 	ax.stock_img()
 
 	# Adicionando os shapes ao plot
-	ax.add_geometries(Reader(sc).geometries(),
+	ax.add_geometries(
+		Reader(sc).geometries(),
 		ccrs.PlateCarree(),
-		facecolor = 'beige', edgecolor = 'black')
+		facecolor='beige',
+		edgecolor='black'
+	)
 
-	ax.add_geometries(Reader(lagoas).geometries(),
+	ax.add_geometries(
+		Reader(lagoas).geometries(),
 		ccrs.PlateCarree(),
-		facecolor = 'skyblue')
+		facecolor='skyblue'
+	)
 
-	rios.plot(ax=ax, color = 'skyblue', lw=4.0)
+	rios.plot(ax=ax, color='skyblue', lw=4.0)
 
-	#plt.scatter(lons, lats, color='black', zorder=10, s=40)
+	plt.show()
 
-	plt.savefig('img/lagoas.png', transparent=True)
 
 if __name__ == '__main__':
 	main()
