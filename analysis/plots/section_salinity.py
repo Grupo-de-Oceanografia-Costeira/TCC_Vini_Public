@@ -18,17 +18,13 @@ saida4 = 'data/ctd/stations_01-10-2017_processed.cnv'
 hd1, hd2, variables, datapoints, alldata = load(saida3)
 
 # Loading metadata
-df = pd.read_csv('data/csv/coordenadas.csv', sep = ';')
+df = pd.read_csv('data/csv/coordenadas.csv', sep=';')
 dates = set(df['Data'])
 dates = list(dates)
 today = dates[3]
 stations = list(df.loc[df['Data'] == today]['Ponto'])
 lat = list(df.loc[df['Data'] == today]['Lat'])
 lon = list(df.loc[df['Data'] == today]['Lon'])
-
-
-# [i.insert(3,'test') for i in [stations, lat, lon]] # saida1 e saida4
-# stations, lat, lon = ['test'] + stations, ['test'] + lat, ['test'] + lon # saida2
 
 # Splitting data into different stations
 d = split_stations(datapoints, stations, variables, lat, lon)
@@ -40,7 +36,8 @@ for st in d:
 # Creating variables with stations from the dictionary
 locals().update(d)
 
-def sectionplot(arg, arg2 = None, arg3 = None):
+
+def sectionplot(arg, arg2=None, arg3=None):
     # Arrays storing salinity data in sals list
     sals = []
     for i in arg:
