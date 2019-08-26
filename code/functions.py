@@ -7,16 +7,17 @@ import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
 import geopandas as gp
 
+
 def load(cnv):
 
-    '''
+    """
     This function opens our .cnv file and reads it. It then creates a list
     with five elements: two lists containing the file headers (that start with
     * and with #), a list with variables, and a list of lists with the data itself.
 
     Run like the following:
     hd1, hd2, variables, datapoints = load('file')
-    '''
+    """
 
     o = open(cnv)
     r = o.readlines()
@@ -27,11 +28,11 @@ def load(cnv):
     for line in r:
         if not line:
             pass
-        elif line.startswith('*'):
+        elif line.startswith("*"):
             hd1.append(line)
-        elif line.startswith('#'):
+        elif line.startswith("#"):
             hd2.append(line)
-            if line.startswith('# name'):
+            if line.startswith("# name"):
                 line = line.split()
                 variables.append(line[4])
         else:
@@ -42,19 +43,20 @@ def load(cnv):
             datapoints.append(float_list)
 
     datapoints = filter(None, datapoints)
-    df = pd.DataFrame(datapoints, columns = variables)
+    df = pd.DataFrame(datapoints, columns=variables)
 
     return hd1, hd2, variables, datapoints
 
-def split_stations(arg1, arg2, arg3 = None, arg4 = None, arg5 = None):
-    '''
+
+def split_stations(arg1, arg2, arg3=None, arg4=None, arg5=None):
+    """
     arg1 is a list of lists, each list being a row of data, like the
     'datapoints' variable generated in the load() function. arg2 is a list of
     strings with the station names IN THE ORDER THEY WERE SAMPLED. This can
     be loaded from a .csv file. arg3 is a list of the variables that will be
     the columns for the resulting dataframes. It should be generated with the
     load() function.
-    '''
+    """
     d = collections.OrderedDict()
 
     for st in arg2:
@@ -65,9 +67,9 @@ def split_stations(arg1, arg2, arg3 = None, arg4 = None, arg5 = None):
 
     for line in arg1:
         if line[1] >= 0.1:
-            line.append(arg2[ix]) # station names
-            line.append(arg4[ix]) # station lat
-            line.append(arg5[ix]) # station lon
+            line.append(arg2[ix])  # station names
+            line.append(arg4[ix])  # station lat
+            line.append(arg5[ix])  # station lon
             st_values.append(line)
         elif line[1] < 0.1:
             if len(st_values) < 4:
@@ -77,56 +79,64 @@ def split_stations(arg1, arg2, arg3 = None, arg4 = None, arg5 = None):
                     d[arg2[ix]].append(line)
                 st_values = []
                 ix += 1
-    arg3.append('STATION')
-    arg3.append('LAT')
-    arg3.append('LONG')
+    arg3.append("STATION")
+    arg3.append("LAT")
+    arg3.append("LONG")
 
     for st in d:
-        d[st] = pd.DataFrame(d[st], columns = arg3)
+        d[st] = pd.DataFrame(d[st], columns=arg3)
 
     return d
 
+
 def remove_upcast(station):
-    depth = station['depSM:']
+    depth = station["depSM:"]
     up = depth.idxmax() + 1
     station = station.loc[:up]
     return station
 
 
 def plot(arg1, arg2=None):
-    '''
+    """
     Easy temperature, salinity and density multiplot
-    '''
+    """
 
-    fig,(ax1, ax2, ax3) = plt.subplots(1, 3, sharey = True)
-    tem, dep, tim, sal, den = arg1['t090:'], arg1['depSM:'], arg1['timeJ:'], arg1['sal00:'], arg1['sigma-t00:']
-    i1 = interp1d(tem, dep, kind='cubic')
-    i2 = interp1d(sal, dep, kind='cubic')
-    i3 = interp1d(den, dep, kind='cubic')
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, sharey=True)
+    tem, dep, tim, sal, den = (
+        arg1["t090"],
+        arg1["depSM"],
+        arg1["timeJ"],
+        arg1["sal00"],
+        arg1["sigma-t00"],
+    )
+    i1 = interp1d(list(tem), (dep), kind="cubic")
+    i2 = interp1d(sal, dep, kind="cubic")
+    i3 = interp1d(den, dep, kind="cubic")
 
-    ax1.plot(tem, dep, 'o', tem, i1(tem), '--', color = 'red')
-    ax1.set_ylabel('Depth [m]')
-    ax1.set_title('Temperature [deg C]')
-    ax2.plot(sal, dep, 'o', sal, i2(sal), '--', color = 'blue')
-    ax2.set_title('Salinity [PSU]')
-    ax3.plot(den, dep, 'o', den, i3(den), '--', color = 'green')
-    ax3.set_title('Density [kg/m^3]')
+    ax1.plot(tem, dep, "o", tem, i1(tem), "--", color="red")
+    ax1.set_ylabel("Depth [m]")
+    ax1.set_title("Temperature [deg C]")
+    ax2.plot(sal, dep, "o", sal, i2(sal), "--", color="blue")
+    ax2.set_title("Salinity [PSU]")
+    ax3.plot(den, dep, "o", den, i3(den), "--", color="green")
+    ax3.set_title("Density [kg/m^3]")
 
-    plt.ylim((-0.5,8.0))
+    plt.ylim((-0.5, 8.0))
     plt.gca().invert_yaxis()
     title = str(arg1)
 
     if arg2 is None:
         plt.show()
     else:
-        fname = arg2 + '/' + arg1['Station ID'][0] + '.png'
+        fname = arg2 + "/" + arg1["Station ID"][0] + ".png"
         plt.savefig(fname)
 
-def sectionplot_sal(arg, arg2 = None, arg3 = None):
+
+def sectionplot_sal(arg, arg2=None, arg3=None):
     # Arrays storing salinity data in sals list
     sals = []
     for i in arg:
-        sals.append(np.array(i['sal00:']))
+        sals.append(np.array(i["sal00:"]))
 
     # Setting salinity range for colorbar
     sal_range = np.arange(1, 40.1, 1)
@@ -134,13 +144,13 @@ def sectionplot_sal(arg, arg2 = None, arg3 = None):
     # Arrays storing depth data in deps list
     deps = []
     for i in arg:
-        deps.append(np.array(i['depSM:']))
+        deps.append(np.array(i["depSM:"]))
 
     # Setting the x axis values for salinity
     x = np.array([])
     ix = 0
     for i in sals:
-        x = np.append(x, [ix]*len(i))
+        x = np.append(x, [ix] * len(i))
         ix += 1
 
     # Setting the y axis values for depth
@@ -157,23 +167,25 @@ def sectionplot_sal(arg, arg2 = None, arg3 = None):
     xi = np.linspace(np.min(x), np.max(x), 200)
     yi = np.linspace(np.min(y), np.max(y), 200)
     xi, yi = np.meshgrid(xi, yi)
-    zi = mlab.griddata(x, y, z, xi, yi, interp='linear') #interp = 'linear' se der erro no Natgrid
+    zi = mlab.griddata(
+        x, y, z, xi, yi, interp="linear"
+    )  # interp = 'linear' se der erro no Natgrid
 
     # Plotting the gridded data
-    plt.figure() # Starting the figure object
-    plt.pcolormesh(xi,yi,zi, vmin = z.min(), vmax = z.max()) # Adding the colour mesh
-    plt.contour(xi, yi, zi, colors='k') # Contour lines
-    plt.scatter(x,y,c=z, vmin = z.min(), vmax = z.max()) # Adding the scatter points
-    plt.xticks(range(0, len(arg)+1), ["Estacao " + i['STATION'][0][2:] for i in arg])
-    plt.colorbar().set_label('Salinidade')
+    plt.figure()  # Starting the figure object
+    plt.pcolormesh(xi, yi, zi, vmin=z.min(), vmax=z.max())  # Adding the colour mesh
+    plt.contour(xi, yi, zi, colors="k")  # Contour lines
+    plt.scatter(x, y, c=z, vmin=z.min(), vmax=z.max())  # Adding the scatter points
+    plt.xticks(range(0, len(arg) + 1), ["Estacao " + i["STATION"][0][2:] for i in arg])
+    plt.colorbar().set_label("Salinidade")
     plt.axis([np.min(x), np.max(x), np.min(y), np.max(y)])
     plt.gca().invert_yaxis()
-    plt.ylabel('Profundidade (m)')
+    plt.ylabel("Profundidade (m)")
 
     if arg2:
         plt.title(arg2)
 
     if arg3:
-        plt.savefig(arg3+arg2.split()[0].strip()+'_section_', transparent=True)
+        plt.savefig(arg3 + arg2.split()[0].strip() + "_section_", transparent=True)
     else:
         plt.show()
