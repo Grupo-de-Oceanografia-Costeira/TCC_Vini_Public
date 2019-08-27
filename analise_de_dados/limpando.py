@@ -66,27 +66,35 @@ class Saida:
         ix_ = 0
         values = pd.DataFrame()
         for ix, row in self.df.iterrows():
-            if row["c0S/m"] >= 0.1:
-                row["name"] = verao.coordenadas.Ponto.iloc[ix_]
-                row["lat"] = verao.coordenadas.Lat.iloc[ix_]
-                row["lon"] = verao.coordenadas.Lon.iloc[ix_]
-                values.append(row)
-            elif row["c0S/m"] < 0.1:
-                if len(values) < 4:
-                    values = pd.DataFrame()
-                elif len(values) >= 4:
-                    self.stations[verao.coordenadas.Ponto.iloc[ix_]] = values
-                    ix_ += 1
+            if ix_ < len(verao.coordenadas):
+                if row["c0S/m"] >= 0.1:
+                    station, lat, lon = (
+                        verao.coordenadas.Ponto.iloc[ix_],
+                        verao.coordenadas.Lat.iloc[ix_],
+                        verao.coordenadas.Lon.iloc[ix_],
+                    )
+                    row["name"] = station
+                    row["lat"] = lat
+                    row["lon"] = lon
+                    values = values.append(row)
+                elif row["c0S/m"] < 0.1:
+                    if len(values) < 4:
+                        values = pd.DataFrame()
+                    elif len(values) >= 4:
+                        print(f"Load station {verao.coordenadas.Ponto.iloc[ix_]}.")
+                        self.stations[verao.coordenadas.Ponto.iloc[ix_]] = values
+                        ix_ += 1
+                        values = pd.DataFrame()
 
 
 verao = Saida("data/ctd/stations_25-01-2017_processed.cnv")
 coordenadas = pd.read_csv("data/csv/coordenadas.csv", sep=";")
 verao.coordenadas = coordenadas[coordenadas.Data.str.contains("25")]
-# verao.split_stations()
+verao.split_stations()
 verao.get_upcast()
 verao.upcast
 
-sns.distplot(verao.upcast["c0S/m"])
-sns.distplot(verao.upcast["t090"])
-sns.distplot(verao.upcast["pr"])
-sns.distplot(verao.upcast["sal00"])
+# sns.distplot(verao.upcast["c0S/m"])
+# sns.distplot(verao.upcast["t090"])
+# sns.distplot(verao.upcast["pr"])
+# sns.distplot(verao.upcast["sal00"])
